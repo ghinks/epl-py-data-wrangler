@@ -26,6 +26,7 @@ class reader:
         """
         rawData = pd.read_json(self.fileName, "records")
         rawData["standardHomeTeamName"] = rawData["HomeTeam"].apply(self.convertTeamName)
+        rawData["standardAwayTeamName"] = rawData["AwayTeam"].apply(self.convertTeamName)
         selectedData = rawData.loc[:, "standardHomeTeamName"].unique()
         print(selectedData)
 
