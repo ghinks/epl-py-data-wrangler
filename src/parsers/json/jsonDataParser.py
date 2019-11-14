@@ -1,22 +1,11 @@
 import pandas as pd
+from src.parsers.reader.reader import Reader
 import re
 
 """class to read in data from json"""
-class reader:
-    fileName = ''
-
+class jsonReader(Reader):
     def __init__(self, fileName):
-        self.fileName = fileName
-
-    def convertTeamName(self, name):
-        """convert string to upper case and strip spaces
-
-        Take the given team name remove whitespace and
-        convert to uppercase
-        """
-        upper = name.upper()
-        converted = re.sub(r"\s+", "", upper)
-        return converted
+        super().__init__(fileName)
 
     def read(self):
         """read the data from file and wrangle it
@@ -31,9 +20,9 @@ class reader:
         print(selectedData)
 
 def readSingleFile():
-    file = reader("./data/historicalData/season-0910_json.json")
+    file = jsonReader("/home/glenn/dev/epl-predictor/data/historicalData/season-0910_json.json")
     file.read()
-    print(reader.fileName)
+    print(jsonReader.fileName)
 
 if __name__ == "__main__":
     readSingleFile()
