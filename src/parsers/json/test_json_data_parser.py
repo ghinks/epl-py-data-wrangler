@@ -1,5 +1,5 @@
 import unittest
-from src.parsers.json.jsonDataParser import jsonReader
+from src.parsers.json.json_data_parser import jsonReader
 
 class testJsonReader(unittest.TestCase):
     def testNameConversion(self):

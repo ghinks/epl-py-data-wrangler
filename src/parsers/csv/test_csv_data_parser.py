@@ -2,7 +2,7 @@ import sys
 import os
 from pathlib import Path
 import unittest
-from src.parsers.csv.csvDataParser import CSVReader
+from src.parsers.csv.csv_data_parser import CSVReader
 
 
 class TestCSVParser(unittest.TestCase):
