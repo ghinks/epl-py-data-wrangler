@@ -1,14 +1,14 @@
 import unittest
-from src.parsers.json.json_data_parser import jsonReader
+from src.parsers.json.json_data_parser import JsonReader
 
 class testJsonReader(unittest.TestCase):
     def testNameConversion(self):
-        json = jsonReader("fake file")
+        json = JsonReader("fake file")
         clubName = json.convertTeamName("Man Utd")
         self.assertEqual("MANUTD", clubName)
 
     def testJsonReading(self):
-        file = jsonReader("/home/glenn/dev/epl-predictor/data/historicalData/season-0910_json.json")
+        file = JsonReader("/home/glenn/dev/epl-predictor/data/historicalData/season-0910_json.json")
         file.read()
         self.assertEqual(True, True)
 

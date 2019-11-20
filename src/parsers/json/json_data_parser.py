@@ -3,7 +3,7 @@ from src.parsers.reader.reader import Reader
 import re
 
 """class to read in data from json"""
-class jsonReader(Reader):
+class JsonReader(Reader):
     def __init__(self, fileName):
         super().__init__(fileName)
 
@@ -18,11 +18,12 @@ class jsonReader(Reader):
         rawData["standardAwayTeamName"] = rawData["AwayTeam"].apply(self.convertTeamName)
         selectedData = rawData.loc[:, "standardHomeTeamName"].unique()
         print(selectedData)
+        return rawData
 
 def readSingleFile():
-    file = jsonReader("/home/glenn/dev/epl-predictor/data/historicalData/season-0910_json.json")
+    file = JsonReader("/home/glenn/dev/epl-predictor/data/historicalData/season-0910_json.json")
     file.read()
-    print(jsonReader.fileName)
+    print(JsonReader.fileName)
 
 if __name__ == "__main__":
     readSingleFile()
