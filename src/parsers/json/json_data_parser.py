@@ -17,7 +17,7 @@ class JsonReader(Reader):
         rawData["standardHomeTeamName"] = rawData["HomeTeam"].apply(self.convertTeamName)
         rawData["standardAwayTeamName"] = rawData["AwayTeam"].apply(self.convertTeamName)
         selectedData = rawData.loc[:, "standardHomeTeamName"].unique()
-        print(selectedData)
+        # print(selectedData)
         return rawData
 
 def readSingleFile():

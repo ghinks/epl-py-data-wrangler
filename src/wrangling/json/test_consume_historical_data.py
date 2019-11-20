@@ -12,7 +12,7 @@ class TestConsumeJsonData(unittest.TestCase):
         consumer = ConsumeHistoricalData()
         conglomoratedData = consumer.concat()
         self.assertIsNotNone(conglomoratedData)
-        conglomoratedData.head()
+        print(conglomoratedData.head())
 
 if __name__ == '__main__':
     unittest.main()

@@ -29,5 +29,5 @@ class ConsumeHistoricalData:
 
     def concat(self):
         setsOfData = self.consume()
-        conglomoratedData = pd.concat(setsOfData)
+        conglomoratedData = pd.concat(setsOfData, sort=False)
         return conglomoratedData
