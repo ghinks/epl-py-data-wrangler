@@ -1,6 +1,7 @@
 import pandas as pd
 from src.discovery.discover_files_in_folder import DiscoverDataFiles
 from src.parsers.json.json_data_parser import JsonReader
+import numpy
 
 
 class ConsumeHistoricalData:
@@ -31,3 +32,12 @@ class ConsumeHistoricalData:
         setsOfData = self.consume()
         conglomoratedData = pd.concat(setsOfData, sort=False)
         return conglomoratedData
+
+    def get_distinct_team_names(self, data):
+        distinctTeamNames = data.loc[:, "standardHomeTeamName"].unique()
+        return numpy.sort(distinctTeamNames)
+
+
+
+
+

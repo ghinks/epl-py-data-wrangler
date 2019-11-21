@@ -15,5 +15,12 @@ class TestConsumeJsonData(unittest.TestCase):
         print(conglomoratedData.head())
         print(conglomoratedData.tail(5))
 
+    def test_distinct_team_names(self):
+        consumer = ConsumeHistoricalData()
+        concatedData = consumer.concat()
+        distinctNames = consumer.get_distinct_team_names(concatedData)
+        self.assertGreater(len(distinctNames), 0)
+        print(distinctNames)
+
 if __name__ == '__main__':
     unittest.main()
