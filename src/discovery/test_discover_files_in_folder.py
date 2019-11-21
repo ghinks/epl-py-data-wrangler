@@ -7,7 +7,7 @@ class TestDiscovery(unittest.TestCase):
         folder = "some/folder"
         glob = "*.json"
         discoverer = DiscoverDataFiles(folder, glob)
-        self.assertEquals(discoverer.targetFolder, folder)
+        self.assertEqual(discoverer.targetFolder, folder)
 
     def test_read(self):
         discoverer = DiscoverDataFiles(os.getcwd(), "**/*.py")

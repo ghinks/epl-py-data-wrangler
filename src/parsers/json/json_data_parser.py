@@ -13,12 +13,24 @@ class JsonReader(Reader):
         Read the data from the json file and apply the conversions
         to the data to get the required data sets
         """
-        rawData = pd.read_json(self.fileName, "records")
-        rawData["standardHomeTeamName"] = rawData["HomeTeam"].apply(self.convertTeamName)
-        rawData["standardAwayTeamName"] = rawData["AwayTeam"].apply(self.convertTeamName)
-        selectedData = rawData.loc[:, "standardHomeTeamName"].unique()
-        # print(selectedData)
-        return rawData
+        try:
+            rawData = pd.read_json(self.fileName, "records")
+            rawData["standardHomeTeamName"] = rawData["HomeTeam"].apply(self.convertTeamName)
+            rawData["standardAwayTeamName"] = rawData["AwayTeam"].apply(self.convertTeamName)
+            #rawData["standardDate"] = rawData["Date"].apply(self.convertStrDate)
+            # selectedData = rawData.loc[:, "standardHomeTeamName"].unique()
+            # print(selectedData)
+            requiredColumns = [
+                "standardHomeTeamName",
+                "standardAwayTeamName",
+                "FTR",
+                "Date"
+            ]
+            selectedData = rawData.loc[:, requiredColumns]
+            return selectedData
+        except (KeyError):
+            print("error in file ", self.fileName)
+            raise
 
 def readSingleFile():
     file = JsonReader("/home/glenn/dev/epl-predictor/data/historicalData/season-0910_json.json")
