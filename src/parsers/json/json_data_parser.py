@@ -1,6 +1,5 @@
 import pandas as pd
 from src.parsers.reader.reader import Reader
-import re
 
 """class to read in data from json"""
 class JsonReader(Reader):
@@ -31,12 +30,4 @@ class JsonReader(Reader):
         except (KeyError):
             print("error in file ", self.fileName)
             raise
-
-def readSingleFile():
-    file = JsonReader("/home/glenn/dev/epl-predictor/data/historicalData/season-0910_json.json")
-    file.read()
-    print(JsonReader.fileName)
-
-if __name__ == "__main__":
-    readSingleFile()
 

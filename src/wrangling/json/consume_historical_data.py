@@ -4,7 +4,7 @@ from src.parsers.json.json_data_parser import JsonReader
 import numpy
 
 
-class ConsumeHistoricalData:
+class ConsumeHistoricalJsonData:
     """Given a path and a glob create a pandas data frame from many JSON files
 
 

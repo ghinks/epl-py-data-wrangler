@@ -12,14 +12,19 @@ class CSVReader(Reader):
 
         Read the data from file and convert the team names
         """
-        rawData = pd.read_csv(self.fileName)
-        print(rawData)
-        return rawData
-
-def readSingleFile():
-    file = CSVReader("data/eplCSV2000-2018/data.csv")
-    file.read()
-
-if __name__ == "__main__":
-    readSingleFile()
+        try:
+            rawData = pd.read_csv(self.fileName)
+            rawData["standardHomeTeamName"] = rawData["HomeTeam"].apply(self.convertTeamName)
+            rawData["standardAwayTeamName"] = rawData["AwayTeam"].apply(self.convertTeamName)
+            requiredColumns = [
+                "standardHomeTeamName",
+                "standardAwayTeamName",
+                "FTR",
+                "Date"
+            ]
+            selectedData = rawData.loc[:, requiredColumns]
+            return selectedData
+        except (KeyError):
+            print("error in file ", self.fileName)
+        raise
 

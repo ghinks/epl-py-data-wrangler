@@ -12,7 +12,7 @@ class TestCSVParser(unittest.TestCase):
         print(os.path.dirname(os.path.abspath(__file__)))
         print(os.path.dirname(sys.modules['__main__'].__file__))
         print(os.path.abspath(os.curdir))
-        reader = CSVReader("/home/glenn/dev/epl-predictor/data/eplCSV2000-2018/data.csv")
+        reader = CSVReader("/home/glenn/dev/epl-predictor/data/football-data/1920.csv")
         results = reader.read()
         self.assertEqual(results.empty, False)
 
