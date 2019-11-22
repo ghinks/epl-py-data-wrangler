@@ -6,7 +6,7 @@ Learning I am creating this project as vehicle to learn.
 
 ## Current Items
 - naming conventions for files etc, read pep
-- find out the , remind your fucking self , what __init__.py does
+- find out the , remind your self , what __init__.py does
 - take multiple files that are found from the dir pointed to
 - find out what the setup.py file does and use it
 - find out why fully qualified file names are necessary in the 
