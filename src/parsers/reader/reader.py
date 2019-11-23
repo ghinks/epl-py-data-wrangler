@@ -13,9 +13,13 @@ class Reader:
         Take the given team name remove whitespace and
         convert to uppercase
         """
-        upper = name.upper()
-        converted = re.sub(r"\s+", "", upper)
-        return converted
+        try:
+            upper = name.upper()
+            converted = re.sub(r"\s+", "", upper)
+            return converted
+        except Exception as e:
+            print(f"an exception when trying to convert ${name} to upper case has taken place ${e}")
+            raise
 
     def convertStrDate(self, strDate):
         """given dd/mm/yyyy or yyyy-mm-dd create a python Date

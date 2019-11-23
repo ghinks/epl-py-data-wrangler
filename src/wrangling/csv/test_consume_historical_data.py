@@ -8,7 +8,6 @@ class TestConsumeCSVHistoricalData(unittest.TestCase):
         self.assertIsNotNone(data)
         self.assertGreater(len(data), 0)
 
-
     def test_concat(self):
         consumer = ConsumeHistoricalCSVData()
         conglomoratedData = consumer.concat()
@@ -16,14 +15,12 @@ class TestConsumeCSVHistoricalData(unittest.TestCase):
         print(conglomoratedData.head())
         print(conglomoratedData.tail(5))
 
-
     def test_distinct_team_names(self):
         consumer = ConsumeHistoricalCSVData()
         concatedData = consumer.concat()
         distinctNames = consumer.get_distinct_team_names(concatedData)
         self.assertGreater(len(distinctNames), 0)
         print(distinctNames)
-
 
 if __name__ == '__main__':
     unittest.main()

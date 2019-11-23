@@ -4,4 +4,4 @@ originate from a sports betting source.
 
 
 - source 1 [datahub.io](https://datahub.io/sports-data/english-premier-league#data)
-- source 2 [original stats football-data.co.uk](https://www.football-data.co.uk/englandm.php)
+- source 2 [original stats football-data.co.uk](https://datahub.io/sports-data/english-premier-league#data)
