@@ -1,3 +1,5 @@
+import functools
+import operator
 import pandas as pd
 from numpy import sort as numpy_sort
 
@@ -32,9 +34,27 @@ class CreateFormData:
 
         sort the data and apply form calculations
         """
+        WINDOW_LENGTH = 5
+        WIN_POINTS= 3.0
+        DRAW_POINTS = 1.0
+        LOOSE_POINTS = 0.0
         for team, games in games_by_team.items():
             sorted_by_team_by_date = games.sort_values("datestamp", ascending=True)
             print(sorted_by_team_by_date.head())
+            item = 0
+            window = []
+            for i, game in sorted_by_team_by_date.iterrows():
+                if len(window) == WINDOW_LENGTH:
+                    window.pop(0)
+                if self.is_win(game, team):
+                    window.append(WIN_POINTS)
+                elif self.is_lose(game, team):
+                    window.append(LOOSE_POINTS)
+                else:
+                    window.append(DRAW_POINTS)
+                form_value = functools.reduce(operator.add, window)
+                # print(f"{team} game {item} form is {form_value} last game result {game['FTR']} home {game['standardHomeTeamName']} away {game['standardAwayTeamName']}")
+                item += 1
 
     def is_win(self, game, team):
         if game["standardHomeTeamName"] == team and game["FTR"] == "H":
