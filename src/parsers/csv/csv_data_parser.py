@@ -16,11 +16,12 @@ class CSVReader(Reader):
             rawData = pd.read_csv(self.fileName)
             rawData["standardHomeTeamName"] = rawData["HomeTeam"].apply(self.convertTeamName)
             rawData["standardAwayTeamName"] = rawData["AwayTeam"].apply(self.convertTeamName)
+            rawData["datestamp"] = rawData["Date"].apply(self.convertStrDate)
             requiredColumns = [
                 "standardHomeTeamName",
                 "standardAwayTeamName",
                 "FTR",
-                "Date"
+                "datestamp"
             ]
             selectedData = rawData.loc[:, requiredColumns]
             return selectedData

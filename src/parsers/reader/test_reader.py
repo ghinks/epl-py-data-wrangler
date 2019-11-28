@@ -15,6 +15,12 @@ class testReader(unittest.TestCase):
         self.assertIsNotNone(pyDate)
         self.assertEqual(datetime.date(2000, 12, 13), pyDate)
 
+    def test_date_conversion_form_one_year_two_digits(self):
+        baseReader = reader.Reader("")
+        test_date = "13/12/03"
+        pyDate = baseReader.convertStrDate(test_date)
+        self.assertIsNotNone(pyDate)
+        self.assertEqual(datetime.date(2003, 12, 13), pyDate)
 
     def test_date_conversion_form_two(self):
         baseReader = reader.Reader("")

@@ -30,14 +30,15 @@ class Reader:
         """
         if not isinstance(strDate, str):
             return strDate
-        print("this was as string", strDate)
         try:
-            compiled = re.compile(r"(\d\d)\/(\d\d)\/(\d\d\d\d)")
+            compiled = re.compile(r"(\d\d)\/(\d\d)\/(\d{2,4})")
             match = compiled.match(strDate)
             if match:
                 day = match.groups()[0]
                 month = match.groups()[1]
                 year = match.groups()[2]
+                if (int(year)) < 2000:
+                    year = (int(year)) + 2000
                 return datetime.date(int(year), int(month), int(day))
             compiled = re.compile(r"(\d\d\d\d)\-(\d\d)\-(\d\d)(.*)")
             match = compiled.match(strDate)

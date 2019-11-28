@@ -28,8 +28,40 @@ class CreateFormData:
         return games_by_team
 
     def create_form_dictionary(self, games_by_team):
+        """create form data
+
+        sort the data and apply form calculations
+        """
         for team, games in games_by_team.items():
-            print(team)
-            sorted_by_team_by_date = games.sort_values("Date", ascending=False)
-            print(sorted_by_team_by_date.head(40))
+            sorted_by_team_by_date = games.sort_values("datestamp", ascending=True)
+            print(sorted_by_team_by_date.head())
+
+    def is_win(self, game, team):
+        if game["standardHomeTeamName"] == team and game["FTR"] == "H":
+            return True
+        if game["standardAwayTeamName"] == team and game["FTR"] == "A":
+            return True
+        return False
+
+    def is_draw(self, game):
+        if game["FTR"] == "D":
+            return True
+        return False
+
+    def is_lose(self, game, team):
+        if game["standardHomeTeamName"] == team and game["FTR"] == "A":
+            return True
+        if game["standardAwayTeamName"] == team and game["FTR"] == "H":
+            return True
+        return False
+
+    def form_calculator(self, sorted_by_team_by_date, team, window_size):
+        """updates the form data
+
+        taking the win/draw/lose and assigning the following value to the sliding window n
+        win 3 pts
+        draw 1 pt
+        lose 0 pt
+        The maximum value can be n * 3, the minimum 0
+        """
 
