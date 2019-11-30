@@ -76,6 +76,13 @@ class TestCreateFormData(unittest.TestCase):
         creator = CreateFormData(TestCreateFormData.test_data)
         partitioned = creator.partition_by_team()
         form_dictionary = creator.create_form_dictionary(partitioned)
+        self.assertEqual(len(form_dictionary), 20)
+        arsenal_form = form_dictionary['ARSENAL']
+        self.assertEqual(len(arsenal_form), 38)
+        max_form = max(arsenal_form.values())
+        self.assertLess(max_form, 16)
+        min_form = min(arsenal_form.values())
+        self.assertEqual(min_form, 0)
 
     @unittest.skip("not ready to update with form yet")
     def test_update_data_frame_with_form(self):

@@ -33,16 +33,23 @@ class CreateFormData:
         """create form data
 
         sort the data and apply form calculations
+        we require that a dictionary of dictionaries
+        shall be created. The first dictionary key will
+        be the team name. The value will be another dictionary
+        that will contain a dictionary of datestamp to form
         """
         WINDOW_LENGTH = 5
         WIN_POINTS= 3.0
         DRAW_POINTS = 1.0
         LOOSE_POINTS = 0.0
+        form_by_team_and_date = {}
         for team, games in games_by_team.items():
             sorted_by_team_by_date = games.sort_values("datestamp", ascending=True)
-            print(sorted_by_team_by_date.head())
+            # print(sorted_by_team_by_date.head())
             item = 0
             window = []
+            team_form = {}
+            form_by_team_and_date[team] = team_form
             for i, game in sorted_by_team_by_date.iterrows():
                 if len(window) == WINDOW_LENGTH:
                     window.pop(0)
@@ -53,8 +60,10 @@ class CreateFormData:
                 else:
                     window.append(DRAW_POINTS)
                 form_value = functools.reduce(operator.add, window)
-                # print(f"{team} game {item} form is {form_value} last game result {game['FTR']} home {game['standardHomeTeamName']} away {game['standardAwayTeamName']}")
+                # print(f"{team} game {item} date {game['datestamp']} form is {form_value} last game result {game['FTR']} home {game['standardHomeTeamName']} away {game['standardAwayTeamName']}")
                 item += 1
+                team_form[game['datestamp']] = form_value
+        return form_by_team_and_date
 
     def is_win(self, game, team):
         if game["standardHomeTeamName"] == team and game["FTR"] == "H":
