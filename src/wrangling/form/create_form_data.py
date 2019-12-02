@@ -2,7 +2,6 @@ import functools
 import operator
 import pandas as pd
 from numpy import sort as numpy_sort
-import datetime
 
 class CreateFormData:
     """initialize with Data, and provide mechanism to create form data
@@ -46,7 +45,6 @@ class CreateFormData:
         form_by_team_and_date = {}
         for team, games in games_by_team.items():
             sorted_by_team_by_date = games.sort_values("datestamp", ascending=True)
-            # print(sorted_by_team_by_date.head())
             item = 0
             window = []
             team_form = {}
@@ -61,7 +59,6 @@ class CreateFormData:
                 else:
                     window.append(DRAW_POINTS)
                 form_value = functools.reduce(operator.add, window)
-                # print(f"{team} game {item} date {game['datestamp']} form is {form_value} last game result {game['FTR']} home {game['standardHomeTeamName']} away {game['standardAwayTeamName']}")
                 item += 1
                 team_form[game['datestamp']] = form_value
         return form_by_team_and_date
