@@ -1,7 +1,9 @@
+import numpy as np
 import pandas as pd
 import unittest
 from src.parsers.csv.csv_data_parser import CSVReader
 from src.wrangling.form.create_form_data import CreateFormData
+import datetime
 
 class TestCreateFormData(unittest.TestCase):
     @classmethod
@@ -83,12 +85,15 @@ class TestCreateFormData(unittest.TestCase):
         self.assertLess(max_form, 16)
         min_form = min(arsenal_form.values())
         self.assertEqual(min_form, 0)
+        arsenal_on_2018_12_8 = arsenal_form[datetime.date(2018, 12, 8)]
+        self.assertIsNotNone(arsenal_on_2018_12_8)
 
-    @unittest.skip("not ready to update with form yet")
     def test_update_data_frame_with_form(self):
         creator = CreateFormData(TestCreateFormData.test_data)
-        updated_data = creator.update_data_frame_with_form()
-        self.assertGreater(len(updated_data["FORM"]), 0)
+        games = creator.update_data_frame_with_form()
+        self.assertIsNotNone(games)
+        results = np.append(np.where(games["awayTeamForm"] >= 0, True, False), (np.where(games["homeTeamForm"] >= 0, True, False)))
+        self.assertTrue(all(results))
 
 if __name__ == '__main__':
     unittest.main()

@@ -2,6 +2,7 @@ import functools
 import operator
 import pandas as pd
 from numpy import sort as numpy_sort
+import datetime
 
 class CreateFormData:
     """initialize with Data, and provide mechanism to create form data
@@ -84,13 +85,23 @@ class CreateFormData:
             return True
         return False
 
-    def form_calculator(self, sorted_by_team_by_date, team, window_size):
-        """updates the form data
+    def update_data_frame_with_form(self):
+        """update the given data frame with the form data
 
-        taking the win/draw/lose and assigning the following value to the sliding window n
-        win 3 pts
-        draw 1 pt
-        lose 0 pt
-        The maximum value can be n * 3, the minimum 0
+        Given the form data add a new column called **form** and
+        set the form values to that from the form dictionary
         """
+        games_by_team = self.partition_by_team()
+        form_by_team = self.create_form_dictionary(games_by_team)
+
+        def convert_form(game, args):
+            team_name_for_game = game[args]
+            team_form = form_by_team[team_name_for_game]
+            game_date = game["datestamp"]
+            form_for_game_on_date = team_form[game_date]
+            return form_for_game_on_date
+
+        self.historical_data["homeTeamForm"] = self.historical_data.apply(convert_form, axis=1, args=["standardHomeTeamName"])
+        self.historical_data["awayTeamForm"] = self.historical_data.apply(convert_form, axis=1, args=["standardAwayTeamName"])
+        return self.historical_data
 
