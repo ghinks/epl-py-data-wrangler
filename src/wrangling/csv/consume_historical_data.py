@@ -14,7 +14,7 @@ class ConsumeHistoricalCSVData:
     then concatenated into a single DataFrame
     """
     def __init__(self):
-        self.path = "/home/glenn/dev/epl-predictor/data/football-data"
+        self.path = "data/football-data"
         self.glob = "*.csv"
 
     def consume(self):
