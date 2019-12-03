@@ -8,7 +8,7 @@ import datetime
 class TestCreateFormData(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        parser = CSVReader("/home/glenn/dev/epl-predictor/data/football-data/1819.csv")
+        parser = CSVReader("data/football-data/1819.csv")
         cls.test_data = parser.read()
 
     def test_partition_by_team(self):

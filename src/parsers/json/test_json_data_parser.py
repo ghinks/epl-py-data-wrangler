@@ -8,7 +8,7 @@ class testJsonReader(unittest.TestCase):
         self.assertEqual("MANUTD", clubName)
 
     def testJsonReading(self):
-        file = JsonReader("/home/glenn/dev/epl-predictor/data/historicalData/season-0910_json.json")
+        file = JsonReader("data/historicalData/season-0910_json.json")
         file.read()
         self.assertEqual(True, True)
 
