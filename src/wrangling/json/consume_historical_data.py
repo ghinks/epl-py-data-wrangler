@@ -15,7 +15,7 @@ class ConsumeHistoricalJsonData:
     then concatenated into a single DataFrame
     """
     def __init__(self):
-        self.path = "/home/glenn/dev/epl-predictor/data/historicalData"
+        self.path = "data/historicalData"
         self.glob = "*.json"
 
     def consume(self):
