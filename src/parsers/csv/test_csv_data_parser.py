@@ -7,16 +7,6 @@ from src.parsers.csv.csv_data_parser import CSVReader
 
 class TestCSVParser(unittest.TestCase):
     def test_something(self):
-        # TODO why the full path only, why not relative
-        TEST_DIR = os.path.dirname(os.path.abspath(__file__))
-        PROJECT_DIR = os.path.abspath(os.path.join(TEST_DIR, os.pardir))
-        print(TEST_DIR)
-        print(PROJECT_DIR)
-        print(sys.path)
-        print(Path(__file__))
-        print(os.path.dirname(os.path.abspath(__file__)))
-        print(os.path.dirname(sys.modules['__main__'].__file__))
-        print(os.path.abspath(os.curdir))
         reader = CSVReader("data/football-data/0304.csv")
         results = reader.read()
         self.assertEqual(results.empty, False)
