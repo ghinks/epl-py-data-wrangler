@@ -1,28 +1,11 @@
 #!/usr/bin/env bash
-curl https://www.football-data.co.uk/mmz4281/1920/E0.csv > 1920.csv
-curl https://www.football-data.co.uk/mmz4281/1819/E0.csv > 1819.csv
-curl https://www.football-data.co.uk/mmz4281/1718/E0.csv > 1718.csv
-curl https://www.football-data.co.uk/mmz4281/1617/E0.csv > 1617.csv
-curl https://www.football-data.co.uk/mmz4281/1516/E0.csv > 1516.csv
-curl https://www.football-data.co.uk/mmz4281/1415/E0.csv > 1415.csv
-curl https://www.football-data.co.uk/mmz4281/1314/E0.csv > 1314.csv
-curl https://www.football-data.co.uk/mmz4281/1213/E0.csv > 1213.csv
-curl https://www.football-data.co.uk/mmz4281/1112/E0.csv > 1112.csv
-curl https://www.football-data.co.uk/mmz4281/1011/E0.csv > 1011.csv
-curl https://www.football-data.co.uk/mmz4281/0910/E0.csv > 0910.csv
-curl https://www.football-data.co.uk/mmz4281/0809/E0.csv > 0809.csv
-curl https://www.football-data.co.uk/mmz4281/0708/E0.csv > 0708.csv
-curl https://www.football-data.co.uk/mmz4281/0607/E0.csv > 0607.csv
-curl https://www.football-data.co.uk/mmz4281/0506/E0.csv > 0506.csv
-curl https://www.football-data.co.uk/mmz4281/0405/E0.csv > 0405.csv
-curl https://www.football-data.co.uk/mmz4281/0304/E0.csv > 0304.csv
-curl https://www.football-data.co.uk/mmz4281/0203/E0.csv > 0203.csv
-curl https://www.football-data.co.uk/mmz4281/0102/E0.csv > 0102.csv
-curl https://www.football-data.co.uk/mmz4281/0001/E0.csv > 0001.csv
-curl https://www.football-data.co.uk/mmz4281/9900/E0.csv > 9900.csv
-curl https://www.football-data.co.uk/mmz4281/9899/E0.csv > 9899.csv
-curl https://www.football-data.co.uk/mmz4281/9798/E0.csv > 9798.csv
-curl https://www.football-data.co.uk/mmz4281/9697/E0.csv > 9697.csv
-curl https://www.football-data.co.uk/mmz4281/9596/E0.csv > 9596.csv
-curl https://www.football-data.co.uk/mmz4281/9495/E0.csv > 9495.csv
-curl https://www.football-data.co.uk/mmz4281/9394/E0.csv > 9394.csv
+
+datafiles=("1920" "1819" "1718" "1617" "1516" "1415" "1314"
+"1213" "1112" "1011" "0910" "0809" "0708" "0607"
+"0506" "0405" "0304" "0203" "0102" "0001" "9900"
+"9899" "9798" "9697" "9596" "9495" "9394" )
+
+
+for val in ${datafiles[*]}; do
+     `curl https://www.football-data.co.uk/mmz4281/$val.csv > $val.csv`
+done

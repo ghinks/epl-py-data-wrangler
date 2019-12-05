@@ -26,7 +26,6 @@ class ConsumeHistoricalCSVData:
             try:
                 data = parser.read()
                 csvDataSets.append(data)
-                print("ok handling ", fileName)
             except Exception as e:
                 print(f"Error handling ${fileName} ${e}")
         return csvDataSets
