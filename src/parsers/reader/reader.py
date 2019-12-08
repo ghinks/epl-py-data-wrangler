@@ -37,8 +37,14 @@ class Reader:
                 day = match.groups()[0]
                 month = match.groups()[1]
                 year = match.groups()[2]
-                if (int(year)) < 2000:
-                    year = (int(year)) + 2000
+                # there are two types of year format that can be given
+                # the first is a 2 digit year. If this year is > 80
+                # then it was before year 2000
+                # if it is < 80 it is after year 2000
+                if len(year) == 2 and 80 < (int(year)) < 100:
+                    year = (int(year)) + 1900
+                elif len(year) == 2 and (int(year)) < 80:
+                    year = 2000 + int(year)
                 return datetime.date(int(year), int(month), int(day))
             compiled = re.compile(r"(\d\d\d\d)\-(\d\d)\-(\d\d)(.*)")
             match = compiled.match(strDate)

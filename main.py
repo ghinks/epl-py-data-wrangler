@@ -14,4 +14,5 @@ fileName = "data/feature-engineered-football-data/data.csv"
 if os.path.exists(fileName):
     os.remove(fileName)
 columns = ["standardHomeTeamName", "standardAwayTeamName", "FTR", "datestamp", "homeTeamForm", "awayTeamForm"]
+games = games.sort_values(["datestamp", "standardHomeTeamName"])
 games[columns].to_csv(fileName, index = False)
