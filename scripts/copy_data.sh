@@ -7,5 +7,5 @@ datafiles=("1920" "1819" "1718" "1617" "1516" "1415" "1314"
 
 
 for val in ${datafiles[*]}; do
-     `curl https://www.football-data.co.uk/mmz4281/$val.csv > $val.csv`
+     `curl https://www.football-data.co.uk/mmz4281/$val/E0.csv > $val.csv`
 done
