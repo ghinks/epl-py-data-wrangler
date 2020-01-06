@@ -2,7 +2,7 @@ from src.wrangling.csv.consume_historical_data import ConsumeHistoricalCSVData
 from src.wrangling.form.create_form_data import CreateFormData
 import pandas
 import os
-from src.wrangling.encode.hot_encode_teams import HotEncodeTeams
+from src.wrangling.encode.teams.hot_encode_teams import HotEncodeTeams
 
 pandas.set_option("display.max_columns", 10)
 consumer = ConsumeHistoricalCSVData()

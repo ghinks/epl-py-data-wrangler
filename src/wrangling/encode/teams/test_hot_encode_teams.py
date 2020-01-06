@@ -1,6 +1,6 @@
 import unittest
 import pandas as pd
-from src.wrangling.encode.hot_encode_teams import HotEncodeTeams
+from src.wrangling.encode.teams.hot_encode_teams import HotEncodeTeams
 
 class TestHotEncoding(unittest.TestCase):
     def test_one_hot_encoding(self):
