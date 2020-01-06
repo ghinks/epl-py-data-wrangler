@@ -1,7 +1,9 @@
+import os
 import pandas as pd
 from src.discovery.discover_files_in_folder import DiscoverDataFiles
 from src.parsers.csv.csv_data_parser import CSVReader
 import numpy
+import re
 
 class ConsumeHistoricalCSVData:
     """Given a path and a glob create a pandas data frame from many CSV files
@@ -17,17 +19,48 @@ class ConsumeHistoricalCSVData:
         self.path = "data/football-data"
         self.glob = "*.csv"
 
+    def cleanTrailingCommas(self, file):
+        """Clean multiple trailing empty comma columns
+
+        arguments: fileName(fully qualified)
+        uses a temp "cleaned" file name to write to
+        returns original file.
+        """
+        cleanedFile = file.split(".csv")[0] + ".cleaned.csv"
+        with open(file, "r") as sourceFile, open(cleanedFile, "w") as destFile:
+            line = sourceFile.readline()
+            while line:
+                tc = re.compile("(^.*?)(,{2,}$)")
+                match = tc.match(line)
+                if match:
+                    destFile.write(match.group(1) + "\n")
+                else:
+                    destFile.write(line)
+                line = sourceFile.readline()
+        os.remove(file)
+        os.rename(cleanedFile, file)
+        return file
+
     def consume(self):
         discover = DiscoverDataFiles(self.path, self.glob)
         fileNames = discover.read()
-        csvDataSets = []
+        cleanedFileNames = []
         for fileName in fileNames:
-            parser = CSVReader(fileName)
+            try:
+                cleanedFileNames.append(self.cleanTrailingCommas(fileName))
+            except Exception as cleanerError:
+                print(f"Error cleaning file ${fileName} ${cleanerError}")
+        csvDataSets = []
+        for fileName in cleanedFileNames:
+            try:
+                parser = CSVReader(fileName)
+            except Exception as eReader:
+                print(f"Error creating CSV Reader ${eReader}")
             try:
                 data = parser.read()
                 csvDataSets.append(data)
             except Exception as e:
-                print(f"Error handling ${fileName} ${e}")
+                print(f"Error handling parse ${fileName} ${e}")
         return csvDataSets
 
     def concat(self):
