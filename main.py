@@ -2,16 +2,14 @@ from src.wrangling.csv.consume_historical_data import ConsumeHistoricalCSVData
 from src.wrangling.form.create_form_data import CreateFormData
 import pandas
 import os
-from src.wrangling.encode.teams.hot_encode_teams import HotEncodeTeams
+from src.wrangling.encode.hot_encode import hotEncodeData
 
 pandas.set_option("display.max_columns", 10)
 consumer = ConsumeHistoricalCSVData()
 data = consumer.consume()
 formDataAdder = CreateFormData(pandas.concat(data))
 games = formDataAdder.update_data_frame_with_form()
-hot_encoder = HotEncodeTeams(games, ["standardHomeTeamName", "standardAwayTeamName"], ["HOME_TEAM", "AWAY_TEAM"],
-                             ["_", "_"])
-games = hot_encoder.create_hot_encoding()
+games = hotEncodeData(games)
 print(games[0:3])
 print(f"total number of games is {len(games)}")
 fileName = "data/feature-engineered-football-data/data.csv"
