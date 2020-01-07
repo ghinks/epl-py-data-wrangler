@@ -28,15 +28,20 @@ class ConsumeHistoricalCSVData:
         """
         cleanedFile = file.split(".csv")[0] + ".cleaned.csv"
         with open(file, "r") as sourceFile, open(cleanedFile, "w") as destFile:
-            line = sourceFile.readline()
-            while line:
-                tc = re.compile("(^.*?)(,{2,}$)")
-                match = tc.match(line)
-                if match:
-                    destFile.write(match.group(1) + "\n")
-                else:
-                    destFile.write(line)
+            lineNum = 1
+            try:
                 line = sourceFile.readline()
+                while line:
+                    tc = re.compile("(^.*?)(,{2,}$)")
+                    match = tc.match(line)
+                    if match:
+                        destFile.write(match.group(1) + "\n")
+                    else:
+                        destFile.write(line)
+                    line = sourceFile.readline()
+                    lineNum += 1
+            except UnicodeDecodeError as e:
+                print(f"cleaning error at line {lineNum} {line} {type(e).__name__} {e}")
         os.remove(file)
         os.rename(cleanedFile, file)
         return file
@@ -49,18 +54,18 @@ class ConsumeHistoricalCSVData:
             try:
                 cleanedFileNames.append(self.cleanTrailingCommas(fileName))
             except Exception as cleanerError:
-                print(f"Error cleaning file ${fileName} ${cleanerError}")
+                print(f"Error cleaning file {fileName} {cleanerError}")
         csvDataSets = []
         for fileName in cleanedFileNames:
             try:
                 parser = CSVReader(fileName)
             except Exception as eReader:
-                print(f"Error creating CSV Reader ${eReader}")
+                print(f"Error creating CSV Reader {eReader}")
             try:
                 data = parser.read()
                 csvDataSets.append(data)
             except Exception as e:
-                print(f"Error handling parse ${fileName} ${e}")
+                print(f"Error handling parse {fileName} {e}")
         return csvDataSets
 
     def concat(self):
